@@ -1,0 +1,370 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ClavisModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ClavisModelStoreContainer">
+    <EntitySet Name="Locks" EntityType="ClavisModel.Store.Locks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LockGroups" EntityType="ClavisModel.Store.LockGroups" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LockOwners" EntityType="ClavisModel.Store.LockOwners" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LockUsers" EntityType="ClavisModel.Store.LockUsers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LockGroupLock" EntityType="ClavisModel.Store.LockGroupLock" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LockGroupLockGroup" EntityType="ClavisModel.Store.LockGroupLockGroup" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LockOwnerLockGroup" EntityType="ClavisModel.Store.LockOwnerLockGroup" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LockUserLockGroup" EntityType="ClavisModel.Store.LockUserLockGroup" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_LockGroupLock_LockGroup" Association="ClavisModel.Store.FK_LockGroupLock_LockGroup">
+      <End Role="LockGroup" EntitySet="LockGroups" />
+      <End Role="LockGroupLock" EntitySet="LockGroupLock" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LockGroupLock_Lock" Association="ClavisModel.Store.FK_LockGroupLock_Lock">
+      <End Role="Lock" EntitySet="Locks" />
+      <End Role="LockGroupLock" EntitySet="LockGroupLock" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LockGroupLockGroup_LockGroup" Association="ClavisModel.Store.FK_LockGroupLockGroup_LockGroup">
+      <End Role="LockGroup" EntitySet="LockGroups" />
+      <End Role="LockGroupLockGroup" EntitySet="LockGroupLockGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LockGroupLockGroup_LockGroup1" Association="ClavisModel.Store.FK_LockGroupLockGroup_LockGroup1">
+      <End Role="LockGroup1" EntitySet="LockGroups" />
+      <End Role="LockGroupLockGroup" EntitySet="LockGroupLockGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LockOwnerLockGroup_LockOwner" Association="ClavisModel.Store.FK_LockOwnerLockGroup_LockOwner">
+      <End Role="LockOwner" EntitySet="LockOwners" />
+      <End Role="LockOwnerLockGroup" EntitySet="LockOwnerLockGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LockOwnerLockGroup_LockGroup" Association="ClavisModel.Store.FK_LockOwnerLockGroup_LockGroup">
+      <End Role="LockGroup" EntitySet="LockGroups" />
+      <End Role="LockOwnerLockGroup" EntitySet="LockOwnerLockGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LockUserLockGroup_LockUser" Association="ClavisModel.Store.FK_LockUserLockGroup_LockUser">
+      <End Role="LockUser" EntitySet="LockUsers" />
+      <End Role="LockUserLockGroup" EntitySet="LockUserLockGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LockUserLockGroup_LockGroup" Association="ClavisModel.Store.FK_LockUserLockGroup_LockGroup">
+      <End Role="LockGroup" EntitySet="LockGroups" />
+      <End Role="LockUserLockGroup" EntitySet="LockUserLockGroup" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Locks">
+    <Key>
+      <PropertyRef Name="LockId" />
+    </Key>
+    <Property Name="LockId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsOpen" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LockGroups">
+    <Key>
+      <PropertyRef Name="LockGroupId" />
+    </Key>
+    <Property Name="LockGroupId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LockOwners">
+    <Key>
+      <PropertyRef Name="LockOwnerId" />
+    </Key>
+    <Property Name="LockOwnerId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LockUsers">
+    <Key>
+      <PropertyRef Name="LockUserId" />
+    </Key>
+    <Property Name="LockUserId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LockGroupLock">
+    <Key>
+      <PropertyRef Name="LockGroups_LockGroupId" />
+      <PropertyRef Name="Locks_LockId" />
+    </Key>
+    <Property Name="LockGroups_LockGroupId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Locks_LockId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LockGroupLockGroup">
+    <Key>
+      <PropertyRef Name="Children_LockGroupId" />
+      <PropertyRef Name="Parents_LockGroupId" />
+    </Key>
+    <Property Name="Children_LockGroupId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Parents_LockGroupId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LockOwnerLockGroup">
+    <Key>
+      <PropertyRef Name="LockOwners_LockOwnerId" />
+      <PropertyRef Name="LockGroups_LockGroupId" />
+    </Key>
+    <Property Name="LockOwners_LockOwnerId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="LockGroups_LockGroupId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LockUserLockGroup">
+    <Key>
+      <PropertyRef Name="LockUsers_LockUserId" />
+      <PropertyRef Name="LockGroups_LockGroupId" />
+    </Key>
+    <Property Name="LockUsers_LockUserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="LockGroups_LockGroupId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_LockGroupLock_LockGroup">
+    <End Role="LockGroup" Type="ClavisModel.Store.LockGroups" Multiplicity="1" />
+    <End Role="LockGroupLock" Type="ClavisModel.Store.LockGroupLock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LockGroup">
+        <PropertyRef Name="LockGroupId" />
+      </Principal>
+      <Dependent Role="LockGroupLock">
+        <PropertyRef Name="LockGroups_LockGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LockGroupLock_Lock">
+    <End Role="LockGroupLock" Type="ClavisModel.Store.LockGroupLock" Multiplicity="*" />
+    <End Role="Lock" Type="ClavisModel.Store.Locks" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Lock">
+        <PropertyRef Name="LockId" />
+      </Principal>
+      <Dependent Role="LockGroupLock">
+        <PropertyRef Name="Locks_LockId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LockGroupLockGroup_LockGroup">
+    <End Role="LockGroup" Type="ClavisModel.Store.LockGroups" Multiplicity="1" />
+    <End Role="LockGroupLockGroup" Type="ClavisModel.Store.LockGroupLockGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LockGroup">
+        <PropertyRef Name="LockGroupId" />
+      </Principal>
+      <Dependent Role="LockGroupLockGroup">
+        <PropertyRef Name="Children_LockGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LockGroupLockGroup_LockGroup1">
+    <End Role="LockGroupLockGroup" Type="ClavisModel.Store.LockGroupLockGroup" Multiplicity="*" />
+    <End Role="LockGroup1" Type="ClavisModel.Store.LockGroups" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="LockGroup1">
+        <PropertyRef Name="LockGroupId" />
+      </Principal>
+      <Dependent Role="LockGroupLockGroup">
+        <PropertyRef Name="Parents_LockGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LockOwnerLockGroup_LockOwner">
+    <End Role="LockOwner" Type="ClavisModel.Store.LockOwners" Multiplicity="1" />
+    <End Role="LockOwnerLockGroup" Type="ClavisModel.Store.LockOwnerLockGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LockOwner">
+        <PropertyRef Name="LockOwnerId" />
+      </Principal>
+      <Dependent Role="LockOwnerLockGroup">
+        <PropertyRef Name="LockOwners_LockOwnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LockOwnerLockGroup_LockGroup">
+    <End Role="LockOwnerLockGroup" Type="ClavisModel.Store.LockOwnerLockGroup" Multiplicity="*" />
+    <End Role="LockGroup" Type="ClavisModel.Store.LockGroups" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="LockGroup">
+        <PropertyRef Name="LockGroupId" />
+      </Principal>
+      <Dependent Role="LockOwnerLockGroup">
+        <PropertyRef Name="LockGroups_LockGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LockUserLockGroup_LockUser">
+    <End Role="LockUser" Type="ClavisModel.Store.LockUsers" Multiplicity="1" />
+    <End Role="LockUserLockGroup" Type="ClavisModel.Store.LockUserLockGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LockUser">
+        <PropertyRef Name="LockUserId" />
+      </Principal>
+      <Dependent Role="LockUserLockGroup">
+        <PropertyRef Name="LockUsers_LockUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LockUserLockGroup_LockGroup">
+    <End Role="LockUserLockGroup" Type="ClavisModel.Store.LockUserLockGroup" Multiplicity="*" />
+    <End Role="LockGroup" Type="ClavisModel.Store.LockGroups" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="LockGroup">
+        <PropertyRef Name="LockGroupId" />
+      </Principal>
+      <Dependent Role="LockUserLockGroup">
+        <PropertyRef Name="LockGroups_LockGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ClavisModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ClavisModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Locks" EntityType="ClavisModel.Lock" />
+          <EntitySet Name="LockGroups" EntityType="ClavisModel.LockGroup" />
+          <AssociationSet Name="LockGroupLock" Association="ClavisModel.LockGroupLock">
+            <End Role="LockGroup" EntitySet="LockGroups" />
+            <End Role="Lock" EntitySet="Locks" />
+          </AssociationSet>
+          <AssociationSet Name="LockGroupLockGroup" Association="ClavisModel.LockGroupLockGroup">
+            <End Role="LockGroup" EntitySet="LockGroups" />
+            <End Role="LockGroup1" EntitySet="LockGroups" />
+          </AssociationSet>
+          <EntitySet Name="LockOwners" EntityType="ClavisModel.LockOwner" />
+          <EntitySet Name="LockUsers" EntityType="ClavisModel.LockUser" />
+          <AssociationSet Name="LockOwnerLockGroup" Association="ClavisModel.LockOwnerLockGroup">
+            <End Role="LockOwner" EntitySet="LockOwners" />
+            <End Role="LockGroup" EntitySet="LockGroups" />
+          </AssociationSet>
+          <AssociationSet Name="LockUserLockGroup" Association="ClavisModel.LockUserLockGroup">
+            <End Role="LockUser" EntitySet="LockUsers" />
+            <End Role="LockGroup" EntitySet="LockGroups" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Lock">
+          <Key>
+            <PropertyRef Name="LockId" />
+          </Key>
+          <Property Name="LockId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="IsOpen" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="LockGroups" Relationship="ClavisModel.LockGroupLock" FromRole="Lock" ToRole="LockGroup" />
+        </EntityType>
+        <EntityType Name="LockGroup">
+          <Key>
+            <PropertyRef Name="LockGroupId" />
+          </Key>
+          <Property Name="LockGroupId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Locks" Relationship="ClavisModel.LockGroupLock" FromRole="LockGroup" ToRole="Lock" />
+          <NavigationProperty Name="Parents" Relationship="ClavisModel.LockGroupLockGroup" FromRole="LockGroup" ToRole="LockGroup1" />
+          <NavigationProperty Name="Children" Relationship="ClavisModel.LockGroupLockGroup" FromRole="LockGroup1" ToRole="LockGroup" />
+          <NavigationProperty Name="LockOwners" Relationship="ClavisModel.LockOwnerLockGroup" FromRole="LockGroup" ToRole="LockOwner" />
+          <NavigationProperty Name="LockUsers" Relationship="ClavisModel.LockUserLockGroup" FromRole="LockGroup" ToRole="LockUser" />
+        </EntityType>
+        <Association Name="LockGroupLock">
+          <End Type="ClavisModel.LockGroup" Role="LockGroup" Multiplicity="*" />
+          <End Type="ClavisModel.Lock" Role="Lock" Multiplicity="*" />
+        </Association>
+        <Association Name="LockGroupLockGroup">
+          <End Type="ClavisModel.LockGroup" Role="LockGroup" Multiplicity="*" />
+          <End Type="ClavisModel.LockGroup" Role="LockGroup1" Multiplicity="*" />
+        </Association>
+        <EntityType Name="LockOwner">
+          <Key>
+            <PropertyRef Name="LockOwnerId" />
+          </Key>
+          <Property Name="LockOwnerId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="LockGroups" Relationship="ClavisModel.LockOwnerLockGroup" FromRole="LockOwner" ToRole="LockGroup" />
+        </EntityType>
+        <EntityType Name="LockUser">
+          <Key>
+            <PropertyRef Name="LockUserId" />
+          </Key>
+          <Property Name="LockUserId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="LockGroups" Relationship="ClavisModel.LockUserLockGroup" FromRole="LockUser" ToRole="LockGroup" />
+        </EntityType>
+        <Association Name="LockOwnerLockGroup">
+          <End Type="ClavisModel.LockOwner" Role="LockOwner" Multiplicity="*" />
+          <End Type="ClavisModel.LockGroup" Role="LockGroup" Multiplicity="*" />
+        </Association>
+        <Association Name="LockUserLockGroup">
+          <End Type="ClavisModel.LockUser" Role="LockUser" Multiplicity="*" />
+          <End Type="ClavisModel.LockGroup" Role="LockGroup" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ClavisModelStoreContainer" CdmEntityContainer="ClavisModelContainer">
+    <EntitySetMapping Name="Locks">
+      <EntityTypeMapping TypeName="IsTypeOf(ClavisModel.Lock)">
+        <MappingFragment StoreEntitySet="Locks">
+          <ScalarProperty Name="LockId" ColumnName="LockId" />
+          <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LockGroups">
+      <EntityTypeMapping TypeName="IsTypeOf(ClavisModel.LockGroup)">
+        <MappingFragment StoreEntitySet="LockGroups">
+          <ScalarProperty Name="LockGroupId" ColumnName="LockGroupId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LockOwners">
+      <EntityTypeMapping TypeName="IsTypeOf(ClavisModel.LockOwner)">
+        <MappingFragment StoreEntitySet="LockOwners">
+          <ScalarProperty Name="LockOwnerId" ColumnName="LockOwnerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LockUsers">
+      <EntityTypeMapping TypeName="IsTypeOf(ClavisModel.LockUser)">
+        <MappingFragment StoreEntitySet="LockUsers">
+          <ScalarProperty Name="LockUserId" ColumnName="LockUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="LockGroupLock" TypeName="ClavisModel.LockGroupLock" StoreEntitySet="LockGroupLock">
+      <EndProperty Name="LockGroup">
+        <ScalarProperty Name="LockGroupId" ColumnName="LockGroups_LockGroupId" />
+      </EndProperty>
+      <EndProperty Name="Lock">
+        <ScalarProperty Name="LockId" ColumnName="Locks_LockId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="LockGroupLockGroup" TypeName="ClavisModel.LockGroupLockGroup" StoreEntitySet="LockGroupLockGroup">
+      <EndProperty Name="LockGroup">
+        <ScalarProperty Name="LockGroupId" ColumnName="Children_LockGroupId" />
+      </EndProperty>
+      <EndProperty Name="LockGroup1">
+        <ScalarProperty Name="LockGroupId" ColumnName="Parents_LockGroupId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="LockOwnerLockGroup" TypeName="ClavisModel.LockOwnerLockGroup" StoreEntitySet="LockOwnerLockGroup">
+      <EndProperty Name="LockOwner">
+        <ScalarProperty Name="LockOwnerId" ColumnName="LockOwners_LockOwnerId" />
+      </EndProperty>
+      <EndProperty Name="LockGroup">
+        <ScalarProperty Name="LockGroupId" ColumnName="LockGroups_LockGroupId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="LockUserLockGroup" TypeName="ClavisModel.LockUserLockGroup" StoreEntitySet="LockUserLockGroup">
+      <EndProperty Name="LockUser">
+        <ScalarProperty Name="LockUserId" ColumnName="LockUsers_LockUserId" />
+      </EndProperty>
+      <EndProperty Name="LockGroup">
+        <ScalarProperty Name="LockGroupId" ColumnName="LockGroups_LockGroupId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

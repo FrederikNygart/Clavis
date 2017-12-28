@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5e448357ea3943609a3abade95c8088f" Name="Diagram1" >
+        <EntityTypeShape EntityType="ClavisModel.Lock" Width="1.5" PointX="5" PointY="7.25" />
+        <EntityTypeShape EntityType="ClavisModel.LockGroup" Width="1.5" PointX="5" PointY="3.875" />
+        <AssociationConnector Association="ClavisModel.LockGroupLock" />
+        <AssociationConnector Association="ClavisModel.LockGroupLockGroup" />
+        <EntityTypeShape EntityType="ClavisModel.LockOwner" Width="1.5" PointX="7.125" PointY="1.375" />
+        <EntityTypeShape EntityType="ClavisModel.LockUser" Width="1.5" PointX="2.875" PointY="1.375" />
+        <AssociationConnector Association="ClavisModel.LockOwnerLockGroup" />
+        <AssociationConnector Association="ClavisModel.LockUserLockGroup" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
