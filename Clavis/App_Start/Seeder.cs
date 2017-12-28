@@ -12,9 +12,12 @@ namespace Clavis
             var lockOwner = new LockOwner{LockOwnerId = new Guid()};
 
             lockOwner.LockGroups.Add(lockGroup);
+            lockGroup.LockOwners.Add(lockOwner);
             lockGroup.Locks.Add(locki);
+            locki.LockGroups.Add(lockGroup);
 
-            new LockOwnerService().Add(lockOwner);
+            new LockGroupService().AddOrUpdate(lockGroup);
+            new LockOwnerService().AddOrUpdate(lockOwner);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 
@@ -13,6 +14,15 @@ namespace Clavis.Services
             {
                 if (!db.LockOwners.Any(lo => lo.LockOwnerId == lockOwner.LockOwnerId)) db.LockOwners.Add(lockOwner);
 
+                db.SaveChanges();
+            }
+        }
+
+        public void AddOrUpdate(LockOwner lockOwner)
+        {
+            using (var db = new ClavisModelContainer())
+            {
+                db.LockOwners.AddOrUpdate(lockOwner);
                 db.SaveChanges();
             }
         }

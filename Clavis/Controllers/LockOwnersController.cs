@@ -10,20 +10,20 @@ namespace Clavis.Controllers
 {
     public class LockOwnersController : ApiController
     {
-        private LockOwnerService LockOwners = new LockOwnerService();
+        private readonly LockOwnerService _lockOwners = new LockOwnerService();
 
         /// <summary>
-        /// Gets all lockowners
+        /// Get all lockowners
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<LockOwnerInfo> GetAll() => LockOwners.GetAll().Select(lo => new LockOwnerInfo{ LockGroups = lo.LockGroups, LockOwnerId = lo.LockOwnerId});
+        public IEnumerable<LockOwnerInfo> GetAll() => _lockOwners.GetAll();
     
         /// <summary>
         /// Get lockowner by id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public LockOwnerInfo GetLockOwner(Guid id) => LockOwners.GetById(id);
+        public LockOwnerInfo GetLockOwner(Guid id) => _lockOwners.GetById(id);
         
     }
 }
