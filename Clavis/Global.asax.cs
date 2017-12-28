@@ -12,6 +12,8 @@ namespace Clavis
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+
+            new Seeder().seed_db();
         }
     }
 }
