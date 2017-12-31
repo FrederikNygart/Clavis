@@ -16,6 +16,15 @@ namespace Clavis.Services
             }
         }
 
+        public List<LockGroupInfo> GetAll()
+        {
+            using (var db = new ClavisModelContainer())
+            {
+                db.Configuration.LazyLoadingEnabled = false;
+                return db.LockGroups.Select(lg => new LockGroupInfo { LockGroupId = lg.LockGroupId, LockOwners = lg.LockOwners, Locks = lg.Locks }).ToList();
+            }
+        }
+
         public void Add(LockGroup lockGroup)
         {
             using (var db = new ClavisModelContainer())
@@ -33,5 +42,22 @@ namespace Clavis.Services
                 db.SaveChanges();
             }
         }
+
+        public void Delete(LockGroup lockGroup)
+        {
+            using(var db = new ClavisModelContainer())
+            {
+                GetById(lockGroup.LockGroupId).Locks.Clear();
+                GetById(lockGroup.LockGroupId).LockUsers.Clear();
+                db.LockGroups.Remove(lockGroup);
+                db.SaveChanges();
+            }
+        }   
+    }
+    public class LockGroupInfo
+    {
+        public Guid LockGroupId { get; set; }
+        public ICollection<LockOwner> LockOwners { get; set; }
+        public ICollection<Lock> Locks { get; set; }
     }
 }

@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/28/2017 13:38:03
--- Generated from EDMX file: D:\Projects\Clavis\Clavis\ClavisModel.edmx
+-- Date Created: 12/30/2017 14:22:08
+-- Generated from EDMX file: C:\Users\frede\OneDrive\Dokumenter\Projects\Clavis\Clavis\ClavisModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -17,11 +17,59 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_LockGroupLock_LockGroup]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[LockGroupLock] DROP CONSTRAINT [FK_LockGroupLock_LockGroup];
+GO
+IF OBJECT_ID(N'[dbo].[FK_LockGroupLock_Lock]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[LockGroupLock] DROP CONSTRAINT [FK_LockGroupLock_Lock];
+GO
+IF OBJECT_ID(N'[dbo].[FK_LockGroupLockGroup_LockGroup]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[LockGroupLockGroup] DROP CONSTRAINT [FK_LockGroupLockGroup_LockGroup];
+GO
+IF OBJECT_ID(N'[dbo].[FK_LockGroupLockGroup_LockGroup1]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[LockGroupLockGroup] DROP CONSTRAINT [FK_LockGroupLockGroup_LockGroup1];
+GO
+IF OBJECT_ID(N'[dbo].[FK_LockOwnerLockGroup_LockOwner]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[LockOwnerLockGroup] DROP CONSTRAINT [FK_LockOwnerLockGroup_LockOwner];
+GO
+IF OBJECT_ID(N'[dbo].[FK_LockOwnerLockGroup_LockGroup]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[LockOwnerLockGroup] DROP CONSTRAINT [FK_LockOwnerLockGroup_LockGroup];
+GO
+IF OBJECT_ID(N'[dbo].[FK_LockUserLockGroup_LockUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[LockUserLockGroup] DROP CONSTRAINT [FK_LockUserLockGroup_LockUser];
+GO
+IF OBJECT_ID(N'[dbo].[FK_LockUserLockGroup_LockGroup]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[LockUserLockGroup] DROP CONSTRAINT [FK_LockUserLockGroup_LockGroup];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[Locks]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Locks];
+GO
+IF OBJECT_ID(N'[dbo].[LockGroups]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[LockGroups];
+GO
+IF OBJECT_ID(N'[dbo].[LockOwners]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[LockOwners];
+GO
+IF OBJECT_ID(N'[dbo].[LockUsers]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[LockUsers];
+GO
+IF OBJECT_ID(N'[dbo].[LockGroupLock]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[LockGroupLock];
+GO
+IF OBJECT_ID(N'[dbo].[LockGroupLockGroup]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[LockGroupLockGroup];
+GO
+IF OBJECT_ID(N'[dbo].[LockOwnerLockGroup]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[LockOwnerLockGroup];
+GO
+IF OBJECT_ID(N'[dbo].[LockUserLockGroup]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[LockUserLockGroup];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables

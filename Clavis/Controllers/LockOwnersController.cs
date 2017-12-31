@@ -4,10 +4,12 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using Clavis.Services;
 
 namespace Clavis.Controllers
 {
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class LockOwnersController : ApiController
     {
         private readonly LockOwnerService _lockOwners = new LockOwnerService();

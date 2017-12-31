@@ -9,9 +9,18 @@ namespace Clavis.Services
     {
         public Lock GetById(Guid id)
         {
-            using (var db =  new ClavisModelContainer())
+            using (var db = new ClavisModelContainer())
             {
                 return db.Locks.Single(l => l.LockId == id);
+            }
+        }
+
+        internal List<LockInfo> GetAll()
+        {
+            using (var db = new ClavisModelContainer())
+            {
+                db.Configuration.LazyLoadingEnabled = false;
+                return db.Locks.Select(l => new LockInfo { LockId = l.LockId, LockGroups = l.LockGroups }).ToList();
             }
         }
 
@@ -23,5 +32,16 @@ namespace Clavis.Services
                 db.SaveChanges();
             }
         }
+
+        public void ClearAll(ClavisModelContainer db)
+        {
+            db.Locks.RemoveRange(db.Locks);
+        }
+    }
+
+    public class LockInfo
+    {
+        public Guid LockId { get; set; }
+        public ICollection<LockGroup> LockGroups { get; set; }
     }
 }

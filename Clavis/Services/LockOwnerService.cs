@@ -54,6 +54,11 @@ namespace Clavis.Services
                     .ToList();
             }
         }
+
+        public void ClearAll(ClavisModelContainer db)
+        {
+            db.LockOwners.RemoveRange(db.LockOwners);
+        }
     }
 
     public class LockOwnerInfo
